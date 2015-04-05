@@ -1,10 +1,5 @@
 <project default="all" name="Build LWJake2">
 
-	<!-- Delete the output directories -->
-	<target name="clean">
-		<delete dir="built"/>
-	</target>
-
 	<!-- Classpath list for javac compiling -->
 	<path id="libPath">
 		<pathelement location="lib/lwjgl.jar"/>
@@ -20,41 +15,41 @@
 	</taskdef>
 
 	<!-- Compile LWJake2 -->
-	<target name="compile" depends="clean">
+	<target name="build" depends="clean">
 		<!-- Compile the source code with javac -->
-		<mkdir dir="built/javac"/>
-		<javac destdir="built/javac" debug="on" source="1.5" target="1.5" includeantruntime="false">
+		<mkdir dir="build/javac"/>
+		<javac destdir="build/javac" debug="on" source="1.5" target="1.5" includeantruntime="false">
 			<src path="src"/>
 			<classpath refid="libPath"/>
 		</javac>
 
 		<!-- Build the LWJake2 jar -->
-		<mkdir dir="built/jar"/>
-		<jar destfile="built/jar/lwjake2.jar">
+		<mkdir dir="build/jar"/>
+		<jar destfile="build/jar/lwjake2.jar">
 			<manifest>
 				<attribute name="Main-Class" value="lwjake2.LWJake2"/>
 				<attribute name="Class-Path" value=". lwjgl.jar lwjgl_util.jar flibitEFX.jar"/>
 			</manifest>
-			<fileset dir="built/javac/"/>
+			<fileset dir="build/javac/"/>
 		</jar>
 
 		<!-- Run FindBugs on the current source -->
 		<findbugs
 			home="findbugs/findbugs-2.0.0/lib/"
 			output="html"
-			outputFile="built/bugs.html"
+			outputFile="build/bugs.html"
 			projectFile="findbugs/LWJake2.fbp"
 			excludeFilter="findbugs/LWJake2.fbf"
 		/>
 	</target>
 
 	<!-- Build GNU/Linux version of LWJake2 -->
-	<target name="linux" depends="compile">
+	<target name="linux" depends="build">
 		<!-- Copy LWJake2 jar -->
-		<copy file="built/jar/lwjake2.jar" todir="built/Linux"/>
+		<copy file="build/jar/lwjake2.jar" todir="build/Linux"/>
 
 		<!-- Copy libs -->
-		<copy todir="built/Linux">
+		<copy todir="build/Linux">
 			<fileset dir="lib">
 				<include name="lwjgl.jar"/>
 				<include name="lwjgl_util.jar"/>
@@ -63,35 +58,35 @@
 		</copy>
 
 		<!-- Copy licenses folder and README files -->
-		<copy todir="built/Linux/licenses">
+		<copy todir="build/Linux/licenses">
 			<fileset dir="licenses"/>
 		</copy>
-		<copy file="README" todir="built/Linux"/>
-		<copy file="readme.id" todir="built/Linux"/>
+		<copy file="README" todir="build/Linux"/>
+		<copy file="readme.id" todir="build/Linux"/>
 
 		<!-- Copy GNU/Linux executable file -->
-		<copy file="executables/LWJake2.sh" todir="built/Linux"/>
+		<copy file="executables/LWJake2.sh" todir="build/Linux"/>
 
 		<!-- Copy GNU/Linux native libraries -->
-		<copy file="lib/lwjgl_native/liblwjgl.so" todir="built/Linux"/>
-		<copy file="lib/lwjgl_native/liblwjgl64.so" todir="built/Linux"/>
-		<copy file="lib/lwjgl_native/libopenal.so" todir="built/Linux"/>
-		<copy file="lib/lwjgl_native/libopenal64.so" todir="built/Linux"/>
+		<copy file="lib/lwjgl_native/liblwjgl.so" todir="build/Linux"/>
+		<copy file="lib/lwjgl_native/liblwjgl64.so" todir="build/Linux"/>
+		<copy file="lib/lwjgl_native/libopenal.so" todir="build/Linux"/>
+		<copy file="lib/lwjgl_native/libopenal64.so" todir="build/Linux"/>
 		
 		<!-- Create the zip distribution -->
-		<mkdir dir="built/zip"/>
-		<zip destfile="built/zip/LWJake2-Linux.zip">
-			<zipfileset dir="built/Linux" prefix="LWJake2"/>
+		<mkdir dir="build/zip"/>
+		<zip destfile="build/zip/LWJake2-Linux.zip">
+			<zipfileset dir="build/Linux" prefix="LWJake2"/>
 		</zip>
 	</target>
 
 	<!-- Build OSX version of LWJake2 -->
-	<target name="osx" depends="compile">
+	<target name="osx" depends="build">
 		<!-- Copy LWJake2 jar -->
-		<copy file="built/jar/lwjake2.jar" todir="built/OSX"/>
+		<copy file="build/jar/lwjake2.jar" todir="build/OSX"/>
 
 		<!-- Copy libs -->
-		<copy todir="built/OSX">
+		<copy todir="build/OSX">
 			<fileset dir="lib">
 				<include name="lwjgl.jar"/>
 				<include name="lwjgl_util.jar"/>
@@ -100,33 +95,33 @@
 		</copy>
 
 		<!-- Copy licenses folder and README files -->
-		<copy todir="built/OSX/licenses">
+		<copy todir="build/OSX/licenses">
 			<fileset dir="licenses"/>
 		</copy>
-		<copy file="README" todir="built/OSX"/>
-		<copy file="readme.id" todir="built/OSX"/>
+		<copy file="README" todir="build/OSX"/>
+		<copy file="readme.id" todir="build/OSX"/>
 
 		<!-- Copy OSX executable file -->
-		<copy file="executables/LWJake2.sh" todir="built/OSX"/>
+		<copy file="executables/LWJake2.sh" todir="build/OSX"/>
 
 		<!-- Copy OSX native libraries -->
-		<copy file="lib/lwjgl_native/liblwjgl.jnilib" todir="built/OSX"/>
-		<copy file="lib/lwjgl_native/openal.dylib" todir="built/OSX"/>
+		<copy file="lib/lwjgl_native/liblwjgl.jnilib" todir="build/OSX"/>
+		<copy file="lib/lwjgl_native/openal.dylib" todir="build/OSX"/>
 		
 		<!-- Create the zip distribution -->
-		<mkdir dir="built/zip"/>
-		<zip destfile="built/zip/LWJake2-OSX.zip">
-			<zipfileset dir="built/OSX" prefix="LWJake2"/>
+		<mkdir dir="build/zip"/>
+		<zip destfile="build/zip/LWJake2-OSX.zip">
+			<zipfileset dir="build/OSX" prefix="LWJake2"/>
 		</zip>
 	</target>
 
 	<!-- Build Windows version of LWJake2 -->
-	<target name="windows" depends="compile">
+	<target name="windows" depends="build">
 		<!-- Copy LWJake2 jar -->
-		<copy file="built/jar/lwjake2.jar" todir="built/Windows"/>
+		<copy file="build/jar/lwjake2.jar" todir="build/Windows"/>
 
 		<!-- Copy libs -->
-		<copy todir="built/Windows">
+		<copy todir="build/Windows">
 			<fileset dir="lib">
 				<include name="lwjgl.jar"/>
 				<include name="lwjgl_util.jar"/>
@@ -135,55 +130,55 @@
 		</copy>
 
 		<!-- Copy licenses folder and README files -->
-		<copy todir="built/Windows/licenses">
+		<copy todir="build/Windows/licenses">
 			<fileset dir="licenses"/>
 		</copy>
-		<copy file="README" todir="built/Windows"/>
-		<copy file="readme.id" todir="built/Windows"/>
+		<copy file="README" todir="build/Windows"/>
+		<copy file="readme.id" todir="build/Windows"/>
 
 		<!-- Copy Windows executable file -->
-		<copy file="executables/LWJake2.bat" todir="built/Windows"/>
+		<copy file="executables/LWJake2.bat" todir="build/Windows"/>
 
 		<!-- Copy Windows native libraries -->
-		<copy file="lib/lwjgl_native/lwjgl.dll" todir="built/Windows"/>
-		<copy file="lib/lwjgl_native/lwjgl64.dll" todir="built/Windows"/>
-		<copy file="lib/lwjgl_native/OpenAL32.dll" todir="built/Windows"/>
-		<copy file="lib/lwjgl_native/OpenAL64.dll" todir="built/Windows"/>
+		<copy file="lib/lwjgl_native/lwjgl.dll" todir="build/Windows"/>
+		<copy file="lib/lwjgl_native/lwjgl64.dll" todir="build/Windows"/>
+		<copy file="lib/lwjgl_native/OpenAL32.dll" todir="build/Windows"/>
+		<copy file="lib/lwjgl_native/OpenAL64.dll" todir="build/Windows"/>
 		
 		<!-- Create the zip distribution -->
-		<mkdir dir="built/zip"/>
-		<zip destfile="built/zip/LWJake2-Windows.zip">
-			<zipfileset dir="built/Windows" prefix="LWJake2"/>
+		<mkdir dir="build/zip"/>
+		<zip destfile="build/zip/LWJake2-Windows.zip">
+			<zipfileset dir="build/Windows" prefix="LWJake2"/>
 		</zip>
 	</target>
 	
 	<!-- Build the server version of LWJake2 -->
-	<target name="server" depends="compile">
+	<target name="server" depends="build">
 		<!--Copy LWJake2 jar -->
-		<copy file="built/jar/lwjake2.jar" todir="built/Server"/>
+		<copy file="build/jar/lwjake2.jar" todir="build/Server"/>
 		
 		<!-- Copy licenses folder and README files -->
-		<copy todir="built/Server/licenses">
+		<copy todir="build/Server/licenses">
 			<fileset dir="licenses"/>
 		</copy>
-		<copy file="README" todir="built/Server"/>
-		<copy file="readme.id" todir="built/Server"/>
+		<copy file="README" todir="build/Server"/>
+		<copy file="readme.id" todir="build/Server"/>
 		
 		<!-- Copy executable files -->
-		<copy file="executables/LWJake2_Server.sh" todir="built/Server"/>
-		<copy file="executables/LWJake2_Server.bat" todir="built/Server"/>
+		<copy file="executables/LWJake2_Server.sh" todir="build/Server"/>
+		<copy file="executables/LWJake2_Server.bat" todir="build/Server"/>
 		
 		<!-- Create the zip distribution -->
-		<mkdir dir="built/zip"/>
-		<zip destfile="built/zip/LWJake2-Server.zip">
-			<zipfileset dir="built/Server" prefix="LWJake2"/>
+		<mkdir dir="build/zip"/>
+		<zip destfile="build/zip/LWJake2-Server.zip">
+			<zipfileset dir="build/Server" prefix="LWJake2"/>
 		</zip>
 	</target>
 
 	<!-- Build the source distribution -->
 	<target name="srcdist" depends="clean">
-		<mkdir dir="built/srcdist"/>
-		<tar destfile="built/srcdist/LWJake2-src.tar.gz" compression="gzip">
+		<mkdir dir="build/srcdist"/>
+		<tar destfile="build/srcdist/LWJake2-src.tar.gz" compression="gzip">
 			<tarfileset dir="executables" prefix="LWJake2/executables"/>
 			<tarfileset dir="findbugs" prefix="LWJake2/findbugs"/>
 			<tarfileset dir="lib" prefix="LWJake2/lib"/>
@@ -195,7 +190,7 @@
 				<include name="readme.id"/>
 			</tarfileset>
 		</tar>
-		<zip destfile="built/srcdist/LWJake2-src.zip">
+		<zip destfile="build/srcdist/LWJake2-src.zip">
 			<zipfileset dir="." prefix="LWJake2">
 				<include name="executables/**"/>
 				<include name="findbugs/**"/>
