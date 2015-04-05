@@ -16,19 +16,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-package lwjake2.client;
+package lwjake2.client
 
-import lwjake2.game.entity_state_t;
+import lwjake2.game.entity_state_t
 
 public class centity_t {
-	entity_state_t baseline= new entity_state_t(null); // delta from this if not from a previous frame
-	public entity_state_t current= new entity_state_t(null);
-	entity_state_t prev= new entity_state_t(null); // will always be valid, but might just be a copy of current
+    var baseline = entity_state_t(null) // delta from this if not from a previous frame
+    public var current: entity_state_t = entity_state_t(null)
+    var prev = entity_state_t(null) // will always be valid, but might just be a copy of current
 
-	int serverframe; // if not current, this ent isn't in the frame
+    var serverframe: Int = 0 // if not current, this ent isn't in the frame
 
-	int trailcount; // for diminishing grenade trails
-	float[] lerp_origin = { 0, 0, 0 }; // for trails (variable hz)
+    var trailcount: Int = 0 // for diminishing grenade trails
+    var lerp_origin = floatArray(0.0, 0.0, 0.0) // for trails (variable hz)
 
-	int fly_stoptime;
+    var fly_stoptime: Int = 0
 }
