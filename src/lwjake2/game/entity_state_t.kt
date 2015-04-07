@@ -23,26 +23,30 @@ import java.io.IOException
 import lwjake2.util.Math3D
 import lwjake2.util.QuakeFile
 
-public class entity_state_t
+public class entity_state_t (ent: edict_t?) : Cloneable {
 /** entity_state_t is the information conveyed from the server
  * in an update message about entities that the client will
  * need to render in some way.  */
-(ent: edict_t?) : Cloneable {
-    {
+
+    public var surrounding_ent: edict_t?
+    public var number: Int
+
+    init {
+        this.number = 0
+
         this.surrounding_ent = ent
-        if (ent != null)
-            number = ent!!.index
+        number = ent!!.index
     }
 
     /** edict index. TODO: this is critical. The index has to be proper managed.  */
-    public var number: Int = 0
+
     // TODO: why was this introduced?
-    public var surrounding_ent: edict_t? = null
-    public var origin: FloatArray = floatArray(0.0, 0.0, 0.0)
-    public var angles: FloatArray = floatArray(0.0, 0.0, 0.0)
+    // public var surrounding_ent: edict_t? = null
+    public var origin: FloatArray = floatArray(0.0f, 0.0f, 0.0f)
+    public var angles: FloatArray = floatArray(0.0f, 0.0f, 0.0f)
 
     /** for lerping.  */
-    public var old_origin: FloatArray = floatArray(0.0, 0.0, 0.0)
+    public var old_origin: FloatArray = floatArray(0.0f, 0.0f, 0.0f)
     public var modelindex: Int = 0
     /** weapons, CTF flags, etc.  */
     public var modelindex2: Int = 0
@@ -150,7 +154,9 @@ public class entity_state_t
         Math3D.VectorClear(angles)
         Math3D.VectorClear(old_origin)
         modelindex = 0
-        modelindex2 = modelindex3 = modelindex4 = 0
+        modelindex2 = 0
+        modelindex3 = 0
+        modelindex4 = 0
         frame = 0
         skinnum = 0
         effects = 0

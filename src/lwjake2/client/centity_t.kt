@@ -21,6 +21,7 @@ package lwjake2.client
 import lwjake2.game.entity_state_t
 
 public class centity_t {
+
     var baseline = entity_state_t(null) // delta from this if not from a previous frame
     public var current: entity_state_t = entity_state_t(null)
     var prev = entity_state_t(null) // will always be valid, but might just be a copy of current
@@ -28,7 +29,7 @@ public class centity_t {
     var serverframe: Int = 0 // if not current, this ent isn't in the frame
 
     var trailcount: Int = 0 // for diminishing grenade trails
-    var lerp_origin = floatArray(0.0, 0.0, 0.0) // for trails (variable hz)
+    var lerp_origin = floatArray(0.0f, 0.0f, 0.0f) // for trails (variable hz)
 
     var fly_stoptime: Int = 0
 }

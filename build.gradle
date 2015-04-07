@@ -92,6 +92,6 @@ dependencies {
 }
 
 sourceSets {
-    main.java.srcDirs += 'src/lwjake2/'
+    main.java.srcDirs += 'src'
 }
 
