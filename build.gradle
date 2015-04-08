@@ -9,20 +9,25 @@ ext {
     // Lib dir for use in manifest entries etc (like in :engine). A separate "libsDir" exists, auto-created by Gradle
     //subDirLibs = 'libs'
 
-    LwjglVersion = '2.9.2'
 }
 
 buildscript {
+    ext.LwjglVersion = '2.9.2'
     ext.kotlin_version = '0.11.91.1'
     repositories {
         mavenCentral()
         maven {
             url 'http://oss.sonatype.org/content/repositories/snapshots'
         }
+        //FIXME: add flibitEFX to oss.sonatype
+        flatDir {
+            dirs 'lib'
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+
 }
 
 apply plugin: 'idea'
@@ -35,6 +40,10 @@ allprojects {
         maven {
             url 'http://oss.sonatype.org/content/repositories/snapshots'
         }
+        //FIXME: add flibitEFX to oss.sonatype
+        flatDir {
+            dirs 'lib'
+        }
     }
 }
 
@@ -43,52 +52,53 @@ allprojects {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Define a custom configuration named "natives"
-configurations {
-    natives
-}
-
+//configurations {
+//    natives
+//}
+//
 // For the "natives" configuration make it depend on the native files from LWJGL
-dependencies {
-    natives group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: LwjglVersion
-}
-
-task extractWindowsNatives(type:Sync) {
-    description = "Extracts the Windows natives from the downloaded zip"
-    from {
-        configurations.natives.collect { it.getName().contains('-natives-window') ? zipTree(it) : [] }
-    }
-    into ("$dirNatives/windows")
-    exclude ('META-INF/**')
-}
-
-task extractMacOSXNatives(type:Sync) {
-    description = "Extracts the OSX natives from the downloaded zip"
-    from {
-        configurations.natives.collect { it.getName().contains('-natives-osx') ? zipTree(it) : [] }
-    }
-    into ("$dirNatives/macosx")
-    exclude ('META-INF/**')
-}
-
-task extractLinuxNatives(type:Sync) {
-    description = "Extracts the Linux natives from the downloaded zip"
-    from {
-        configurations.natives.collect { it.getName().contains('-natives-linux') ? zipTree(it) : [] }
-    }
-    into ("$dirNatives/linux")
-    exclude ('META-INF/**')
-}
-
-task extractNatives {
-    description = "Extracts all the native lwjgl libraries from the downloaded zip"
-    dependsOn extractWindowsNatives
-    dependsOn extractLinuxNatives
-    dependsOn extractMacOSXNatives
-}
+//dependencies {
+//    natives group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: LwjglVersion
+//}
+//
+//task extractWindowsNatives(type:Sync) {
+//    description = "Extracts the Windows natives from the downloaded zip"
+//    from {
+//        configurations.natives.collect { it.getName().contains('-natives-window') ? zipTree(it) : [] }
+//    }
+//    into ("$dirNatives/windows")
+//    exclude ('META-INF/**')
+//}
+//
+//task extractMacOSXNatives(type:Sync) {
+//    description = "Extracts the OSX natives from the downloaded zip"
+//    from {
+//        configurations.natives.collect { it.getName().contains('-natives-osx') ? zipTree(it) : [] }
+//    }
+//    into ("$dirNatives/macosx")
+//    exclude ('META-INF/**')
+//}
+//
+//task extractLinuxNatives(type:Sync) {
+//    description = "Extracts the Linux natives from the downloaded zip"
+//    from {
+//        configurations.natives.collect { it.getName().contains('-natives-linux') ? zipTree(it) : [] }
+//    }
+//    into ("$dirNatives/linux")
+//    exclude ('META-INF/**')
+//}
+//
+//task extractNatives {
+//    description = "Extracts all the native lwjgl libraries from the downloaded zip"
+//    dependsOn extractWindowsNatives
+//    dependsOn extractLinuxNatives
+//    dependsOn extractMacOSXNatives
+//}
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    //compile 'org.reflections:reflections:0.9.9-RC1'
+    compile "org.lwjgl.lwjgl:lwjgl:$LwjglVersion"
+    compile "com.flibitijibibo.flibitEFX:flibitEFX:1.0"
 }
 
 sourceSets {

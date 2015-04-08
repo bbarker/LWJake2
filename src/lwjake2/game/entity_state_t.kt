@@ -33,7 +33,6 @@ public class entity_state_t (ent: edict_t?) : Cloneable {
 
     init {
         this.number = 0
-
         this.surrounding_ent = ent
         number = ent!!.index
     }
@@ -41,7 +40,6 @@ public class entity_state_t (ent: edict_t?) : Cloneable {
     /** edict index. TODO: this is critical. The index has to be proper managed.  */
 
     // TODO: why was this introduced?
-    // public var surrounding_ent: edict_t? = null
     public var origin: FloatArray = floatArray(0.0f, 0.0f, 0.0f)
     public var angles: FloatArray = floatArray(0.0f, 0.0f, 0.0f)
 

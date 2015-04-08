@@ -22,7 +22,8 @@ import lwjake2.game.entity_state_t
 
 public class centity_t {
 
-    var baseline = entity_state_t(null) // delta from this if not from a previous frame
+    // delta from this if not from a previous frame
+    var baseline: entity_state_t = entity_state_t(null)
     public var current: entity_state_t = entity_state_t(null)
     var prev = entity_state_t(null) // will always be valid, but might just be a copy of current
 
