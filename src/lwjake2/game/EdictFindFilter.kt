@@ -20,7 +20,7 @@ package lwjake2.game
 
 /** Helps for filtering the iteration over the gedicts[] array, see GFind(). RST.  */
 
-public class EdictFindFilter {
+open public class EdictFindFilter {
     fun matches(e: edict_t, s: String): Boolean {
         return false
     }

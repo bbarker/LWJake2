@@ -22,7 +22,7 @@ package lwjake2
 
 import java.nio.ByteOrder
 
-public class Defines {
+open public class Defines {
     companion object {
 
         public val WEAPON_READY: Int = 0

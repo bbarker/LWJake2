@@ -61,7 +61,10 @@ public class SCR : Globals() {
         }
 
         fun clear() {
-            x1 = x2 = y1 = y2 = 0
+            x1 = 0
+            x2 = 0
+            y1 = 0
+            y2 = 0
         }
     }
 
@@ -1238,6 +1241,7 @@ public class SCR : Globals() {
                     if (value == 0) {
                         // skip to endif
                         while (!ph.isEof() && !(token = Com.Parse(ph)).equals("endif"))
+                        { /* nothing */ }
                     }
                     continue
                 }

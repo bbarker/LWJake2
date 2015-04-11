@@ -25,14 +25,14 @@ import java.util.Arrays
 
 public class pmove_t {
 
-    public class TraceAdapter {
+    open public class TraceAdapter {
         // callbacks to test the world
         public fun trace(start: FloatArray, mins: FloatArray, maxs: FloatArray, end: FloatArray): trace_t? {
             return null
         }
     }
 
-    public class PointContentsAdapter {
+    open public class PointContentsAdapter {
         // callbacks to test the world
         public fun pointcontents(point: FloatArray): Int {
             return 0

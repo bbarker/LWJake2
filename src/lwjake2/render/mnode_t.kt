@@ -20,7 +20,7 @@ package lwjake2.render
 
 import lwjake2.game.cplane_t
 
-public class mnode_t {
+open public class mnode_t {
     //	common with leaf
     public var contents: Int = 0 // -1, to differentiate from leafs
     public var visframe: Int = 0 // node needs to be traversed if current

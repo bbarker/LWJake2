@@ -81,7 +81,7 @@ public class Menu : Key() {
         public abstract fun execute(self: Object)
     }
 
-    class menucommon_s {
+    open private class menucommon_s {
         var type: Int = 0
 
         var name = ""
@@ -4357,7 +4357,7 @@ public class Menu : Key() {
 
             if (key > 127) {
                 when (key) {
-                    K_DEL, else -> return false
+                    /* K_DEL, */ else -> return false
                 }
             }
 
@@ -4402,7 +4402,7 @@ public class Menu : Key() {
 
                 K_KP_ENTER, K_ENTER, K_ESCAPE, K_TAB -> return false
 
-                K_SPACE, else -> {
+                /* K_SPACE, */ else -> {
                 if (!Character.isDigit(key) && (f.flags and QMF_NUMBERSONLY) != 0)
                     return false
 

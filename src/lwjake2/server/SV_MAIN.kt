@@ -39,7 +39,7 @@ import lwjake2.util.Lib
 
 import java.io.IOException
 
-public class SV_MAIN {
+open public class SV_MAIN {
     companion object {
 
         /** Address of group servers.  */

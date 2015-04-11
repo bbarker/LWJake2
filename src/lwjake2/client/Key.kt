@@ -34,7 +34,7 @@ import java.util.Vector
 /**
  * Key
  */
-public class Key : Globals() {
+open public class Key : Globals() {
     companion object {
         //
         // these are the key numbers that should be passed to Key_Event
@@ -121,7 +121,7 @@ public class Key : Globals() {
 
         var keynames = arrayOfNulls<String>(256)
 
-        {
+        init {
             keynames[K_TAB] = "TAB"
             keynames[K_ENTER] = "ENTER"
             keynames[K_ESCAPE] = "ESCAPE"

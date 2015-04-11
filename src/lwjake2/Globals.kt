@@ -44,7 +44,7 @@ import java.util.Random
 
  * As consequence you dont have to touch that much code this time.
  */
-public class Globals : Defines() {
+open public class Globals : Defines() {
     companion object {
 
         public val __DATE__: String = "2003"
